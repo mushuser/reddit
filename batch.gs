@@ -4,9 +4,12 @@ redditlib.check_init()
 updaterlib.init_project(doc_filename, doc_id, doc_wiki, page_header)
 updaterlib.check_init()
 
+
 function batch_month() {
   updaterlib.batch_update_doc_force()
+ 
 }
+
 
 function batch_day() {
   redditlib.batch_del_old_comments()
