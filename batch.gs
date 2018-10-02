@@ -14,6 +14,7 @@ function batch_month() {
 
 function batch_day() {
   console.info("batch_day()")
+  redditlib.batch_save_wikis_gd()
   redditlib.batch_del_old_comments()
   updaterlib.batch_update_doc()
 }
@@ -22,5 +23,4 @@ function batch_day() {
 function batch_hours() {
   console.info("batch_hours()")
   redditlib.batch_add_goodposts()
-  redditlib.batch_save_comments_gd()
 }
