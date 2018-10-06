@@ -29,8 +29,8 @@ function batch_hours2() {
 }
 
 
-function batch_hour1() {
-  console.info("batch_hour1()")
+function batch_hour() {
+  console.info("batch_hour()")
   var all = redditlib.get_comments()
   mlablib.insert_documents(all)
 }
