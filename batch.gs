@@ -31,6 +31,19 @@ function batch_hours2() {
 
 function batch_hour() {
   console.info("batch_hour()")
-  var all = redditlib.get_comments()
-  mlablib.insert_documents(all)
+  var comments = redditlib.get_comments()
+  var len = comments.length
+  var m = 1000
+  var left = len % m
+  var c = Math.ceil(len / m)
+  
+  for(var i=0; i<c;i++) {
+    var parts = comments.slice(i*m, i*m+m)
+    console.log("batch %d", i)
+    mlablib.insert_documents(parts)    
+  }
+  
+  // 999 docs 3.7M 
+  // 500M / 3.7M = 135
+  // 135H / 24H = 5.6D(CAPPED)
 }
