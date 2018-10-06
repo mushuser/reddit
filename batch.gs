@@ -6,6 +6,9 @@ updaterlib.init_project(doc_filename, doc_id, doc_wiki, page_header)
 updaterlib.check_init()
 
 
+mlablib.init_project(mlab)
+mlablib.check_init()
+
 function batch_month() {
   console.info("batch_month()")
   updaterlib.batch_update_doc_force()
@@ -20,7 +23,14 @@ function batch_day() {
 }
 
 
-function batch_hours() {
-  console.info("batch_hours()")
+function batch_hours2() {
+  console.info("batch_hours2()")
   redditlib.batch_add_goodposts()
+}
+
+
+function batch_hour1() {
+  console.info("batch_hour1()")
+  var all = redditlib.get_comments()
+  mlablib.insert_documents(all)
 }
