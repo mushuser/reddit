@@ -28,22 +28,16 @@ function batch_hours2() {
   redditlib.batch_add_goodposts()
 }
 
-
-function batch_hour() {
-  console.info("batch_hour()")
-  var comments = redditlib.get_comments()
-  var len = comments.length
-  var m = 1000
-  var left = len % m
-  var c = Math.ceil(len / m)
+// 10m
+function batch_comments_snapshot() {
+//  console.info("batch_comments_snapshot() in")
+  var checkeds = redditlib.get_checked_comments()
+  var names = redditlib.get_new_comment_names()
   
-  for(var i=0; i<c;i++) {
-    var parts = comments.slice(i*m, i*m+m)
-    console.log("batch %d", i)
-    mlablib.insert_documents(parts)    
+  for(var i=0; i<names.length; i++) {
+    var parent = redditlib.get_parent_full(names[i])
+    mlablib.insert_documents("snapshot", parent) 
+    console.log("new snapshot inserted:%s", names[i])
   }
-  
-  // 999 docs 3.7M 
-  // 500M / 3.7M = 135
-  // 135H / 24H = 5.6D(CAPPED)
+//  console.info("batch_comments_snapshot() out")  
 }
