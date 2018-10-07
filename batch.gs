@@ -22,6 +22,7 @@ function batch_day() {
 }
 
 function batch_hours12() {
+  console.info("batch_hours12()")  
   redditlib.batch_save_wikis_gd() // the longest task at the last
 }
 
@@ -41,13 +42,15 @@ function batch_comments_snapshot() {
   }
   
   for(var i=0; i<names.length; i++) {
-    var parent = redditlib.get_parent_full(names[i])
+    var parent_full = redditlib.get_parent_full(names[i])
+    var title = redditlib.get_parent_data(parent_full).title
+    
     var doc = {
       name:names[i],
-      data:parent
+      data:parent_full
     }
     mlablib.insert_documents("snapshot", doc) 
-    console.log("new snapshot inserted:%s", names[i])
+    console.log("new snapshot inserted:%s:%s", names[i], title)
   }
   
   if(names.length > 0) {  
