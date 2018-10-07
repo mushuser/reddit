@@ -30,14 +30,24 @@ function batch_hours2() {
 
 // 10m
 function batch_comments_snapshot() {
-//  console.info("batch_comments_snapshot() in")
-  var checkeds = redditlib.get_checked_comments()
+  var checkeds = redditlib.get_checked_comments_pro()
   var names = redditlib.get_new_comment_names()
+  
+  if(names.length > 0) {
+    console.info("batch_comments_snapshot() in")
+  }
   
   for(var i=0; i<names.length; i++) {
     var parent = redditlib.get_parent_full(names[i])
-    mlablib.insert_documents("snapshot", parent) 
+    var doc = {
+      name:names[i],
+      data:parent
+    }
+    mlablib.insert_documents("snapshot", doc) 
     console.log("new snapshot inserted:%s", names[i])
   }
-//  console.info("batch_comments_snapshot() out")  
+  
+  if(names.length > 0) {  
+    console.info("batch_comments_snapshot() out")  
+  }
 }
