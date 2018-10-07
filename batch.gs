@@ -19,6 +19,9 @@ function batch_day() {
   console.info("batch_day()")
   redditlib.batch_del_old_comments()
   updaterlib.batch_update_doc()
+}
+
+function batch_hours12() {
   redditlib.batch_save_wikis_gd() // the longest task at the last
 }
 
