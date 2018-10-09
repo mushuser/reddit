@@ -9,6 +9,7 @@ updaterlib.check_init()
 mlablib.init_project(mlab)
 mlablib.check_init()
 
+
 function batch_month() {
   console.info("batch_month()")
   updaterlib.batch_update_doc_force()
@@ -21,8 +22,9 @@ function batch_day() {
   updaterlib.batch_update_doc()
 }
 
+
 function batch_hours12() {
-  console.info("batch_hours12()")  
+  console.log("batch_hours12()")  
   redditlib.batch_save_wikis_gd() // the longest task at the last
 }
 
@@ -32,7 +34,7 @@ function batch_hours2() {
   redditlib.batch_add_goodposts()
 }
 
-// 10m
+// 15m
 function batch_comments_snapshot() {
   var checkeds = redditlib.get_checked_comments_pro()
   var names = redditlib.get_new_comment_names()
@@ -49,8 +51,13 @@ function batch_comments_snapshot() {
       name:names[i],
       data:parent_full
     }
-    mlablib.insert_documents("snapshot", doc) 
-    console.log("new snapshot inserted:%s:%s", names[i], title)
+    var r = mlablib.insert_documents("snapshot", doc) 
+    
+    if(r) {
+      console.log("new snapshot inserted:%s:%s:%s", names[i], title, parent_full)
+    } else {
+      console.log("snapshot not inserted:%s:%s:%s", names[i], title, parent_full) 
+    }
   }
   
   if(names.length > 0) {  
