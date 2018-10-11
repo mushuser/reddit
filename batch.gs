@@ -16,9 +16,14 @@ function batch_month() {
 }
 
 
-function batch_day() {
-  console.info("batch_day()")
+function batch_day1() {
+  console.info("batch_day1()")
   redditlib.batch_del_old_comments()
+}
+
+
+function batch_day2() {
+  console.info("batch_day2()")
   updaterlib.batch_update_doc()
 }
 
