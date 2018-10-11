@@ -41,7 +41,6 @@ function batch_hours2() {
 
 // 15m
 function batch_comments_snapshot() {
-  var checkeds = redditlib.get_checked_comments_pro()
   var names = redditlib.get_new_comment_names()
   
   if(names.length > 0) {
