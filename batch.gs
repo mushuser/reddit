@@ -41,30 +41,29 @@ function batch_hours2() {
 
 // 15m
 function batch_comments_snapshot() {
-  var names = redditlib.get_new_comment_names()
+  var new_comments = redditlib.get_comments(20)
+  var new_c_names = redditlib.get_names_fr_obj(new_comments)
   
-  if(names.length > 0) {
-    console.info("batch_comments_snapshot() in")
-  }
-  
-  for(var i=0; i<names.length; i++) {
-    var parent_full = redditlib.get_parent_full(names[i])
+  for(var i=0; i<new_c_names.length; i++) {
+    var count = mlablib.get_matched_count("snapshot", new_c_names[i])
+    if(count > 0) {
+      continue  
+    }
+    
+    var parent_full = redditlib.get_parent_full(new_c_names[i])
     var title = redditlib.get_parent_data(parent_full).title
     
     var doc = {
-      name:names[i],
+      name:new_c_names[i],
       data:parent_full
     }
+    
     var r = mlablib.insert_documents("snapshot", doc) 
     
     if(r) {
-      console.log("new snapshot inserted:%s:%s:%s", names[i], title, parent_full)
+      console.log("new snapshot inserted:%s:%s:%s", new_c_names[i], title, parent_full)
     } else {
-      console.log("snapshot not inserted:%s:%s:%s", names[i], title, parent_full) 
-    }
-  }
-  
-  if(names.length > 0) {  
-    console.info("batch_comments_snapshot() out")  
+      console.log("snapshot not inserted:%s:%s:%s", new_c_names[i], title, parent_full) 
+    }   
   }
 }
