@@ -1,4 +1,4 @@
-redditlib.init_project(subreddit, creds, folder_id, flair_mapping)
+redditlib.init_project(subreddit, creds_1, creds_voters, folder_id, flair_mapping)
 redditlib.check_init()
 
 
@@ -13,6 +13,7 @@ mlablib.check_init()
 function batch_month() {
   console.info("batch_month()")
   updaterlib.batch_update_doc_force()
+  updaterlib.batch_set_arg_queue()
 }
 
 
@@ -30,7 +31,7 @@ function batch_day2() {
 
 function batch_hours12() {
   console.log("batch_hours12()")  
-  redditlib.batch_save_wikis_gd() // the longest task at the last
+  redditlib.batch_save_wikis_gd()
 }
 
 
@@ -46,6 +47,7 @@ function batch_comments_snapshot() {
   
   for(var i=0; i<new_c_names.length; i++) {
     var count = mlablib.get_matched_count("snapshot", new_c_names[i])
+    
     if(count > 0) {
       continue  
     }
@@ -66,4 +68,49 @@ function batch_comments_snapshot() {
       console.log("snapshot not inserted:%s:%s:%s", new_c_names[i], title, parent_full) 
     }   
   }
+}
+
+
+function doGet(e) {
+  var name = e.parameter.name
+  var dir = e.parameter.dir
+  var data = redditlib.get_parent(name)
+  var age = redditlib.get_age(data.created_utc)
+  var title = data.title.slice(0,15)
+
+  var obj = {
+    "name":name,
+    "dir":dir,
+    "age":age,
+    "title":title,
+    "voter":redditlib.voter_obj.voter
+  }
+  console.log("received:%s", obj)
+  redditlib.set_arg_queue(obj)
+  
+  var json_text = ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON); 
+  return json_text
+}
+
+
+function clean_arg() {
+  redditlib.clean_argument("VOTER_QUEUE")
+  redditlib.clean_argument("ARG_QUEUE")
+  dump_arg()
+}
+
+
+function dump_arg() {
+  Logger.log(redditlib.dump_argument("VOTER_QUEUE"))
+  Logger.log(redditlib.dump_argument("ARG_QUEUE"))
+}
+
+// 1 week
+function batch_set_arg_queue() {
+  redditlib.batch_set_arg_queue()  
+}
+
+// 10 minute
+function batch_voter_vote() {
+  redditlib.batch_voter_vote()  
 }
