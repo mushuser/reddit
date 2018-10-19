@@ -1,4 +1,4 @@
-redditlib.init_project(subreddit, creds_1, creds_voters, folder_id, flair_mapping)
+redditlib.init_project(subreddit, creds_main, creds_voters, folder_id, flair_mapping)
 redditlib.check_init()
 
 
