@@ -87,13 +87,14 @@ function doGet(e) {
     "voter":redditlib.voter_obj.voter,
     "logged_user":logged_user    
   }
+  
   if(obj["logged_user"] == creds_main.username) {
     redditlib.set_arg_queue(obj)
     console.log("received:%s", obj)
     
     var ret_obj = obj
   } else {
-    var msg = "not from main user, skipped:" + obj
+    var msg = "not from main user, skipped:" + JSON.stringify(obj)
     console.log(msg)
     
     var ret_obj = {
