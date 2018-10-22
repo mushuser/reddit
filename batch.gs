@@ -77,18 +77,31 @@ function doGet(e) {
   var data = redditlib.get_parent(name)
   var age = redditlib.get_age(data.created_utc)
   var title = data.title.slice(0,15)
+  var logged_user = e.parameter.logged_user
 
   var obj = {
     "name":name,
     "dir":dir,
     "age":age,
     "title":title,
-    "voter":redditlib.voter_obj.voter
+    "voter":redditlib.voter_obj.voter,
+    "logged_user":logged_user    
   }
-  console.log("received:%s", obj)
-  redditlib.set_arg_queue(obj)
+  if(obj["logged_user"] == creds_main.username) {
+    redditlib.set_arg_queue(obj)
+    console.log("received:%s", obj)
+    
+    var ret_obj = obj
+  } else {
+    var msg = "not from main user, skipped:" + obj
+    console.log(msg)
+    
+    var ret_obj = {
+      "result":msg
+    }
+  }
   
-  var json_text = ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON); 
+  var json_text = ContentService.createTextOutput(JSON.stringify(ret_obj)).setMimeType(ContentService.MimeType.JSON); 
   return json_text
 }
 
