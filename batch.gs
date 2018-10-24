@@ -1,4 +1,4 @@
-redditlib.init_project(subreddit, creds_main, creds_voters, folder_id, flair_mapping)
+redditlib.init_project(subreddit, secret_sr, creds_main, creds_voters, folder_id, flair_mapping)
 redditlib.check_init()
 
 
@@ -13,24 +13,14 @@ mlablib.check_init()
 function batch_month() {
   console.info("batch_month()")
   updaterlib.batch_update_doc_force()
-  updaterlib.batch_set_arg_queue()
+  redditlib.batch_set_arg_queue()
 }
 
 
-function batch_day1() {
-  console.info("batch_day1()")
-  redditlib.batch_del_old_comments()
-}
-
-
-function batch_day2() {
-  console.info("batch_day2()")
+function batch_day() {
+  console.info("batch_day")
   updaterlib.batch_update_doc()
-}
-
-
-function batch_hours12() {
-  console.log("batch_hours12()")  
+  redditlib.batch_del_old_comments()
   redditlib.batch_save_wikis_gd()
 }
 
@@ -127,4 +117,28 @@ function batch_set_arg_queue() {
 // 10 minute
 function batch_voter_vote() {
   redditlib.batch_voter_vote()  
+}
+
+
+// day
+function batch_post_to_test() {
+  redditlib.post_to_test()
+}
+
+
+// 1 hr
+function batch_post_to_secret_sr() {
+  redditlib.post_to_secret_sr()
+}
+
+
+// 30m
+function batch_replay_any() {
+  redditlib.reply_any()  
+}
+
+
+// 30m
+function batch_upvote_any() {
+  redditlib.upvote_any()  
 }
