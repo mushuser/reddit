@@ -119,26 +119,27 @@ function batch_voter_vote() {
   redditlib.batch_voter_vote()  
 }
 
-
-// day
+// 12 hrs
 function batch_post_to_test() {
   redditlib.post_to_test()
 }
 
+// 12 hrs
+function batch_post_to_quotes() {
+  redditlib.post_to_quotes()
+}
 
 // 1 hr
 function batch_post_to_secret_sr() {
   redditlib.post_to_secret_sr()
 }
 
-
-// 30m
+// 15m
 function batch_replay_any() {
   redditlib.reply_any()  
 }
 
-
-// 30m
+// 15m
 function batch_upvote_any() {
   redditlib.upvote_any()  
 }
