@@ -139,6 +139,11 @@ function batch_upvote_any() {
   redditlib.upvote_any()  
 }
 
+// 5m
+function batch_upvote_t3() {
+  redditlib.upvote_any("t3")  
+}
+
 // 6 hours
 function batch_update_karmas() {
   redditlib.update_karmas()
