@@ -124,7 +124,7 @@ function batch_post_to_quotes() {
   redditlib.post_to_quotes()
 }
 
-// 1 hr
+// 30m
 function batch_post_to_secret_sr() {
   redditlib.post_to_secret_sr()
 }
@@ -139,7 +139,7 @@ function batch_upvote_any() {
   redditlib.upvote_any()  
 }
 
-// daily
+// 6 hours
 function batch_update_karmas() {
   redditlib.update_karmas()
 }
