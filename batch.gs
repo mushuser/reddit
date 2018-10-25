@@ -129,12 +129,12 @@ function batch_post_to_secret_sr() {
   redditlib.post_to_secret_sr()
 }
 
-// 15m
+// 10m
 function batch_reply_any() {
   redditlib.reply_any()  
 }
 
-// 15m
+// 5m
 function batch_upvote_any() {
   redditlib.upvote_any()  
 }
