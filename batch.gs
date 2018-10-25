@@ -43,7 +43,7 @@ function batch_comments_snapshot() {
     }
     
     var parent_full = redditlib.get_parent_full(new_c_names[i])
-    var title = redditlib.get_parent_data(parent_full).title
+    var title = redditlib.get_t3_data(parent_full).title
     
     var doc = {
       name:new_c_names[i],
@@ -109,11 +109,6 @@ function dump_arg() {
   Logger.log(redditlib.dump_argument("ARG_QUEUE"))
 }
 
-// 1 week
-function batch_set_arg_queue() {
-  redditlib.batch_set_arg_queue()  
-}
-
 // 10 minute
 function batch_voter_vote() {
   redditlib.batch_voter_vote()  
@@ -135,11 +130,16 @@ function batch_post_to_secret_sr() {
 }
 
 // 15m
-function batch_replay_any() {
+function batch_reply_any() {
   redditlib.reply_any()  
 }
 
 // 15m
 function batch_upvote_any() {
   redditlib.upvote_any()  
+}
+
+// daily
+function batch_update_karmas() {
+  redditlib.update_karmas()
 }
