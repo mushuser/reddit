@@ -109,7 +109,7 @@ function dump_arg() {
   Logger.log(redditlib.dump_argument("ARG_QUEUE"))
 }
 
-// 5 minute
+// 10m
 function batch_voter_vote() {
   redditlib.batch_voter_vote()  
 }
@@ -134,12 +134,12 @@ function batch_reply_any() {
   redditlib.reply_any()  
 }
 
-// 5m
+// 10m
 function batch_upvote_any() {
   redditlib.upvote_any()  
 }
 
-// 5m
+// 10m
 function batch_upvote_t3() {
   redditlib.upvote_any("t3")  
 }
