@@ -26,7 +26,7 @@ function batch_day() {
 
 
 function batch_hours2() {
-  console.info("batch_hours2()")
+//  console.info("batch_hours2()")
   redditlib.batch_add_goodposts()
 }
 
@@ -109,7 +109,7 @@ function dump_arg() {
   Logger.log(redditlib.dump_argument("ARG_QUEUE"))
 }
 
-// 10 minute
+// 5 minute
 function batch_voter_vote() {
   redditlib.batch_voter_vote()  
 }
