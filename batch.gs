@@ -1,12 +1,12 @@
-redditlib.init_project(subreddit, secret_sr, creds_main, creds_voters, folder_id, flair_mapping)
+redditlib.init_project(secret.subreddit, secret.secret_sr, secret.creds_main, secret.creds_voters, secret.folder_id, secret.flair_mapping)
 redditlib.check_init()
 
 
-updaterlib.init_project(doc_filename, doc_id, doc_wiki, page_header)
+updaterlib.init_project(secret.doc_filename, secret.doc_id, secret.doc_wiki, secret.page_header)
 updaterlib.check_init()
 
 
-mlablib.init_project(mlab)
+mlablib.init_project(secret.mlab)
 mlablib.check_init()
 
 
@@ -127,8 +127,8 @@ function batch_get_interesting_posts() {
     
     var keywords = []
     
-    for(var i2 in interesting_keywords) {
-      var keyword = interesting_keywords[i2]  
+    for(var i2 in secret.interesting_keywords) {
+      var keyword = secret.interesting_keywords[i2]  
       var name = data.name
       var id = data.id
       
