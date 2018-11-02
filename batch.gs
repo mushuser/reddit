@@ -109,42 +109,64 @@ function dump_arg() {
   Logger.log(redditlib.dump_argument("ARG_QUEUE"))
 }
 
-// 10m
+// 30m
 function batch_voter_vote() {
   redditlib.batch_voter_vote()  
 }
 
-// 12 hrs
-function batch_post_to_test() {
-  redditlib.post_to_test()
-}
+// get interesting posts
+function batch_get_interesting_posts() {
+  var objs = []
+  
+  var comments = redditlib.get_comments(50)
+ 
+  for(var i in comments) {
+    var data = comments[i].data
+    var title = data.title.toLowerCase()
+    var selftext = data.selftext.toLowerCase()
+    
+    var keywords = []
+    
+    for(var i2 in interesting_keywords) {
+      var keyword = interesting_keywords[i2]  
+      var name = data.name
+      var id = data.id
+      
+      if(selftext.indexOf(keyword) > -1) {
+        keywords.push(keyword)        
+      }      
+      
+      if(title.indexOf(keyword) > -1) {
+        keywords.push(keyword)        
+      }            
+    }  
+    
+    keywords = redditlib.get_unique(keywords)
+    
+    if(keywords.length > 0) {
+      var obj = {
+        "name":name,
+        "id":id,
+        "title":title.slice(0,20),
+        "keywords":keywords
+      }
+      
+      objs.push(obj)
+    }
+  }
 
-// 12 hrs
-function batch_post_to_quotes() {
-  redditlib.post_to_quotes()
-}
-
-// 30m
-function batch_post_to_secret_sr() {
-  redditlib.post_to_secret_sr()
-}
-
-// 10m
-function batch_reply_any() {
-  redditlib.reply_any()  
-}
-
-// 10m
-function batch_upvote_any() {
-  redditlib.upvote_any()  
-}
-
-// 10m
-function batch_upvote_t3() {
-  redditlib.upvote_any("t3")  
-}
-
-// 6 hours
-function batch_update_karmas() {
-  redditlib.update_karmas()
+  var mail_title = Utilities.formatString("[interesting posts] %d", objs.length)
+  var mail_lines = ""
+  var link_prefix = "https://redd.it/"
+  
+  for(var i in objs) {
+    var obj = objs[i]
+    var link = link_prefix + obj.id
+    var index = parseInt(i) + 1
+    mail_lines = mail_lines + Utilities.formatString("[%d]%s,%s,%s\n\n", (index), obj.keywords, link, obj.title)
+  }
+  
+  var mail = Session.getActiveUser().getEmail()
+  
+  MailApp.sendEmail(mail, mail_title, mail_lines)  
 }
