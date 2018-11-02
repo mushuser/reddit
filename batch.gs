@@ -114,7 +114,7 @@ function batch_voter_vote() {
   redditlib.batch_voter_vote()  
 }
 
-// get interesting posts
+// daily
 function batch_get_interesting_posts() {
   var objs = []
   
@@ -141,9 +141,10 @@ function batch_get_interesting_posts() {
       }            
     }  
     
-    keywords = redditlib.get_unique(keywords)
     
     if(keywords.length > 0) {
+      keywords = redditlib.get_unique(keywords)
+      
       var obj = {
         "name":name,
         "id":id,
@@ -163,10 +164,12 @@ function batch_get_interesting_posts() {
     var obj = objs[i]
     var link = link_prefix + obj.id
     var index = parseInt(i) + 1
-    mail_lines = mail_lines + Utilities.formatString("[%d]%s,%s,%s\n\n", (index), obj.keywords, link, obj.title)
+    mail_lines = mail_lines + Utilities.formatString("[%02d]%s ,%s ,%s\n\n", index, obj.keywords, link, obj.title)
   }
   
-  var mail = Session.getActiveUser().getEmail()
-  
-  MailApp.sendEmail(mail, mail_title, mail_lines)  
+  if(objs.length > 0) {
+    var mail = Session.getActiveUser().getEmail()
+    
+    MailApp.sendEmail(mail, mail_title, mail_lines)
+  }
 }
