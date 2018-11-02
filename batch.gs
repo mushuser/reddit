@@ -143,7 +143,7 @@ function batch_get_interesting_posts() {
     
     
     if(keywords.length > 0) {
-      keywords = redditlib.get_unique(keywords)
+      keywords = httplib.get_unique(keywords)
       
       var obj = {
         "name":name,
@@ -156,7 +156,7 @@ function batch_get_interesting_posts() {
     }
   }
 
-  var mail_title = Utilities.formatString("[interesting posts] %d", objs.length)
+  var mail_title = Utilities.formatString("[interesting reddit] %d", objs.length)
   var mail_lines = ""
   var link_prefix = "https://redd.it/"
   
